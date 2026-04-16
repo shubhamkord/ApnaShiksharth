@@ -1,0 +1,230 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="light">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Sign Up — Apna Shiksharth</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com"/>
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700;800&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet"/>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" crossorigin="anonymous"/>
+  <link rel="stylesheet" href="/style.css"/>
+  <style>
+    .auth-page { min-height: 100vh; display: flex; align-items: center; justify-content: center; background: var(--gradient-hero); padding: 100px 16px 40px; }
+    .auth-card { background: var(--bg-surface); border: 1px solid var(--clr-border); border-radius: var(--radius-xl); padding: 44px 44px; width: 100%; max-width: 460px; box-shadow: var(--shadow-xl); }
+    .auth-logo { display: flex; align-items: center; gap: 10px; justify-content: center; margin-bottom: 28px; font-family: var(--font-heading); font-size: 1.2rem; font-weight: 700; color: var(--text-primary); text-decoration: none; }
+    .auth-logo-icon { width: 44px; height: 44px; border-radius: 12px; background: var(--gradient-primary); display: flex; align-items: center; justify-content: center; color: #fff; font-size: 1.1rem; }
+    .auth-title { font-family: var(--font-heading); font-size: 1.7rem; font-weight: 800; color: var(--text-primary); text-align: center; margin-bottom: 6px; }
+    .auth-sub { text-align: center; color: var(--text-secondary); font-size: 0.9rem; margin-bottom: 28px; }
+    .auth-form { display: flex; flex-direction: column; gap: 16px; }
+    .form-group { display: flex; flex-direction: column; gap: 5px; }
+    .form-group label { font-size: 0.875rem; font-weight: 600; color: var(--text-primary); }
+    .input-wrap { position: relative; }
+    .input-wrap i.prefix { position: absolute; left: 14px; top: 50%; transform: translateY(-50%); color: var(--text-muted); font-size: 0.95rem; pointer-events: none; }
+    .input-wrap input { width: 100%; padding: 12px 14px 12px 42px; border: 1.5px solid var(--clr-border); border-radius: var(--radius-sm); background: var(--bg-body); color: var(--text-primary); font-size: 0.9375rem; font-family: var(--font-body); outline: none; transition: all 0.2s ease; }
+    .input-wrap input:focus { border-color: var(--clr-primary); box-shadow: 0 0 0 3px rgba(59,130,246,0.12); }
+    .input-wrap input.error { border-color: var(--clr-danger); }
+    .toggle-pw { position: absolute; right: 14px; top: 50%; transform: translateY(-50%); background: none; border: none; cursor: pointer; color: var(--text-muted); font-size: 0.95rem; padding: 4px; }
+    .field-error { font-size: 0.78rem; color: var(--clr-danger); display: none; }
+    .field-error.show { display: block; }
+    .pw-strength { height: 4px; border-radius: 4px; background: var(--clr-border); margin-top: 6px; overflow: hidden; }
+    .pw-strength-bar { height: 100%; width: 0%; border-radius: 4px; transition: width 0.3s ease, background 0.3s ease; }
+    .pw-hint { font-size: 0.75rem; color: var(--text-muted); margin-top: 4px; }
+    .btn-auth { width: 100%; padding: 14px; border-radius: var(--radius-full); background: var(--gradient-primary); color: #fff; font-family: var(--font-heading); font-size: 1rem; font-weight: 700; border: none; cursor: pointer; display: flex; align-items: center; justify-content: center; gap: 8px; transition: all 0.3s ease; box-shadow: 0 4px 20px rgba(59,130,246,0.35); }
+    .btn-auth:hover { transform: translateY(-2px); box-shadow: 0 8px 30px rgba(59,130,246,0.45); }
+    .btn-auth:disabled { opacity: 0.7; cursor: not-allowed; transform: none; }
+    .terms-note { font-size: 0.78rem; color: var(--text-muted); text-align: center; line-height: 1.5; }
+    .terms-note a { color: var(--clr-primary); }
+    .auth-divider { display: flex; align-items: center; gap: 12px; color: var(--text-muted); font-size: 0.85rem; }
+    .auth-divider::before, .auth-divider::after { content: ''; flex: 1; height: 1px; background: var(--clr-border); }
+    .auth-switch { text-align: center; font-size: 0.9rem; color: var(--text-secondary); }
+    .auth-switch a { color: var(--clr-primary); font-weight: 600; }
+    .alert { padding: 14px 16px; border-radius: var(--radius-sm); font-size: 0.9rem; font-weight: 500; display: none; align-items: center; gap: 10px; }
+    .alert.show { display: flex; }
+    .alert-error   { background: rgba(239,68,68,0.08); border: 1px solid rgba(239,68,68,0.25); color: #b91c1c; }
+    .alert-success { background: rgba(16,185,129,0.08); border: 1px solid rgba(16,185,129,0.25); color: #065f46; }
+    @media (max-width: 480px) { .auth-card { padding: 32px 20px; } }
+  </style>
+</head>
+<body>
+  <header id="navbar" style="position:fixed;top:0;left:0;right:0;z-index:200;background:var(--bg-nav);backdrop-filter:blur(20px);border-bottom:1px solid var(--clr-border);box-shadow:0 1px 8px rgba(0,0,0,0.06);">
+    <nav style="max-width:1200px;margin:0 auto;padding:14px 24px;display:flex;align-items:center;justify-content:space-between;">
+      <a href="/" style="display:flex;align-items:center;gap:10px;font-family:var(--font-heading);font-size:1.1rem;font-weight:700;color:var(--text-primary);text-decoration:none;">
+        <span style="width:36px;height:36px;border-radius:10px;background:var(--gradient-primary);display:flex;align-items:center;justify-content:center;color:#fff;font-size:0.95rem;"><i class="fas fa-graduation-cap"></i></span>
+        Apna <strong style="color:var(--clr-primary);">Shiksharth</strong>
+      </a>
+      <div style="display:flex;gap:12px;align-items:center;">
+        <a href="/login" class="btn btn-outline btn-sm">Log In</a>
+      </div>
+    </nav>
+  </header>
+
+  <main class="auth-page">
+    <div class="auth-card">
+      <a href="/" class="auth-logo">
+        <span class="auth-logo-icon"><i class="fas fa-graduation-cap"></i></span>
+        Apna <strong style="color:var(--clr-primary);">Shiksharth</strong>
+      </a>
+
+      <h1 class="auth-title">Create your account</h1>
+      <p class="auth-sub">Join 1,20,000+ students learning with Apna Shiksharth</p>
+
+      <div class="alert alert-error" id="signup-alert">
+        <i class="fas fa-exclamation-circle"></i>
+        <span id="signup-alert-msg"></span>
+      </div>
+
+      <form class="auth-form" id="signup-form" novalidate>
+        <div class="form-group">
+          <label for="name">Full Name</label>
+          <div class="input-wrap">
+            <i class="fas fa-user prefix"></i>
+            <input type="text" id="name" name="name" placeholder="Your full name" autocomplete="name" required/>
+          </div>
+          <span class="field-error" id="name-err"></span>
+        </div>
+
+        <div class="form-group">
+          <label for="email">Email Address</label>
+          <div class="input-wrap">
+            <i class="fas fa-envelope prefix"></i>
+            <input type="email" id="email" name="email" placeholder="your@email.com" autocomplete="email" required/>
+          </div>
+          <span class="field-error" id="email-err"></span>
+        </div>
+
+        <div class="form-group">
+          <label for="password">Password</label>
+          <div class="input-wrap">
+            <i class="fas fa-lock prefix"></i>
+            <input type="password" id="password" name="password" placeholder="Min 8 characters" autocomplete="new-password" required/>
+            <button type="button" class="toggle-pw" id="toggle-pw1" aria-label="Toggle password"><i class="fas fa-eye" id="pw1-icon"></i></button>
+          </div>
+          <div class="pw-strength"><div class="pw-strength-bar" id="pw-bar"></div></div>
+          <p class="pw-hint" id="pw-hint">Use letters, numbers & symbols for a stronger password</p>
+          <span class="field-error" id="pw-err"></span>
+        </div>
+
+        <div class="form-group">
+          <label for="confirmPassword">Confirm Password</label>
+          <div class="input-wrap">
+            <i class="fas fa-lock prefix"></i>
+            <input type="password" id="confirmPassword" name="confirmPassword" placeholder="Repeat your password" autocomplete="new-password" required/>
+            <button type="button" class="toggle-pw" id="toggle-pw2" aria-label="Toggle password"><i class="fas fa-eye" id="pw2-icon"></i></button>
+          </div>
+          <span class="field-error" id="cpw-err"></span>
+        </div>
+
+        <p class="terms-note">By signing up you agree to our <a href="/terms">Terms & Conditions</a> and <a href="/privacy">Privacy Policy</a>.</p>
+
+        <button type="submit" class="btn-auth" id="signup-btn">
+          <span id="signup-btn-text"><i class="fas fa-user-plus"></i> Create Account</span>
+          <span id="signup-btn-loading" style="display:none;"><i class="fas fa-spinner fa-spin"></i> Creating account…</span>
+        </button>
+      </form>
+
+      <div class="auth-divider" style="margin:20px 0;">or</div>
+      <div class="auth-switch">Already have an account? <a href="/login">Log in</a></div>
+    </div>
+  </main>
+
+  <script>
+    const saved = localStorage.getItem('theme');
+    if (saved) document.documentElement.setAttribute('data-theme', saved);
+
+    // Toggle password visibility
+    function makeToggle(btnId, inputId, iconId) {
+      document.getElementById(btnId).addEventListener('click', function() {
+        const inp = document.getElementById(inputId);
+        const ic  = document.getElementById(iconId);
+        if (inp.type === 'password') { inp.type = 'text'; ic.className = 'fas fa-eye-slash'; }
+        else { inp.type = 'password'; ic.className = 'fas fa-eye'; }
+      });
+    }
+    makeToggle('toggle-pw1', 'password', 'pw1-icon');
+    makeToggle('toggle-pw2', 'confirmPassword', 'pw2-icon');
+
+    // Password strength
+    document.getElementById('password').addEventListener('input', function() {
+      const v = this.value;
+      let score = 0;
+      if (v.length >= 8)  score++;
+      if (/[A-Z]/.test(v)) score++;
+      if (/[0-9]/.test(v)) score++;
+      if (/[^A-Za-z0-9]/.test(v)) score++;
+      const bar  = document.getElementById('pw-bar');
+      const hint = document.getElementById('pw-hint');
+      const pct  = (score / 4) * 100;
+      bar.style.width = pct + '%';
+      const colors = ['', '#ef4444', '#f59e0b', '#3b82f6', '#10b981'];
+      const labels = ['', 'Weak', 'Fair', 'Good', 'Strong'];
+      bar.style.background = colors[score] || '#e2e8f0';
+      hint.textContent = score > 0 ? `Password strength: ${labels[score]}` : 'Use letters, numbers & symbols';
+    });
+
+    function showAlert(msg) {
+      const el  = document.getElementById('signup-alert');
+      el.className = 'alert alert-error show';
+      document.getElementById('signup-alert-msg').textContent = msg;
+    }
+
+    function setLoading(on) {
+      document.getElementById('signup-btn').disabled = on;
+      document.getElementById('signup-btn-text').style.display    = on ? 'none' : 'flex';
+      document.getElementById('signup-btn-loading').style.display = on ? 'flex' : 'none';
+    }
+
+    function clearErrors() {
+      document.querySelectorAll('.field-error').forEach(e => { e.textContent = ''; e.classList.remove('show'); });
+      document.querySelectorAll('.input-wrap input').forEach(i => i.classList.remove('error'));
+      document.getElementById('signup-alert').classList.remove('show');
+    }
+
+    function fieldErr(id, inputId, msg) {
+      document.getElementById(id).textContent = msg;
+      document.getElementById(id).classList.add('show');
+      document.getElementById(inputId).classList.add('error');
+    }
+
+    document.getElementById('signup-form').addEventListener('submit', async function(e) {
+      e.preventDefault();
+      clearErrors();
+
+      const name            = document.getElementById('name').value.trim();
+      const email           = document.getElementById('email').value.trim();
+      const password        = document.getElementById('password').value;
+      const confirmPassword = document.getElementById('confirmPassword').value;
+
+      let valid = true;
+      if (name.length < 2)    { fieldErr('name-err','name','Name must be at least 2 characters.'); valid = false; }
+      if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) { fieldErr('email-err','email','Enter a valid email address.'); valid = false; }
+      if (password.length < 8) { fieldErr('pw-err','password','Password must be at least 8 characters.'); valid = false; }
+      if (password !== confirmPassword) { fieldErr('cpw-err','confirmPassword','Passwords do not match.'); valid = false; }
+      if (!valid) return;
+
+      setLoading(true);
+      try {
+        const res  = await fetch('/api/auth/signup', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          credentials: 'include',
+          body: JSON.stringify({ name, email, password, confirmPassword })
+        });
+        const data = await res.json();
+
+        if (data.success) {
+          localStorage.setItem('as_user', JSON.stringify(data.user));
+          if (data.token) localStorage.setItem('as_token', data.token);
+          window.location.href = '/dashboard';
+        } else {
+          showAlert(data.message || 'Signup failed. Please try again.');
+          setLoading(false);
+        }
+      } catch (err) {
+        showAlert('Network error. Please check your connection.');
+        setLoading(false);
+      }
+    });
+  </script>
+</body>
+</html>

@@ -1,0 +1,283 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="light">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>About Us — Apna Shiksharth</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com"/>
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700;800;900&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet"/>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" crossorigin="anonymous"/>
+  <link rel="stylesheet" href="/style.css"/>
+  <style>
+    /* ---- Shared nav ---- */
+    .top-nav { position:fixed;top:0;left:0;right:0;z-index:200;background:var(--bg-nav);backdrop-filter:blur(20px);border-bottom:1px solid var(--clr-border);box-shadow:0 1px 8px rgba(0,0,0,0.06); }
+    .top-nav-inner { max-width:1200px;margin:0 auto;padding:14px 24px;display:flex;align-items:center;gap:20px; }
+    .nav-brand { display:flex;align-items:center;gap:10px;font-family:var(--font-heading);font-size:1.1rem;font-weight:700;color:var(--text-primary);text-decoration:none;flex-shrink:0; }
+    .nav-brand-icon { width:36px;height:36px;border-radius:10px;background:var(--gradient-primary);display:flex;align-items:center;justify-content:center;color:#fff;font-size:0.95rem; }
+    .nav-links-r { display:flex;gap:6px;margin-left:auto;align-items:center;flex-wrap:wrap; }
+    .nav-links-r a { padding:8px 12px;font-size:0.9rem;font-weight:500;color:var(--text-secondary);text-decoration:none;border-radius:8px;transition:all .2s; }
+    .nav-links-r a:hover { color:var(--clr-primary); }
+    .nav-links-r a.active { color:var(--clr-primary);background:rgba(59,130,246,0.08); }
+
+    /* ---- Hero ---- */
+    .about-hero { background:var(--gradient-hero);padding:120px 0 70px;text-align:center; }
+    .about-hero .tag { display:inline-block;font-size:0.8rem;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:var(--clr-primary);background:rgba(59,130,246,0.1);padding:6px 16px;border-radius:999px;margin-bottom:20px; }
+    .about-hero h1 { font-family:var(--font-heading);font-size:clamp(2.2rem,5vw,3.4rem);font-weight:900;color:var(--text-primary);line-height:1.15;margin-bottom:20px; }
+    .about-hero p { font-size:1.075rem;color:var(--text-secondary);max-width:640px;margin:0 auto 36px;line-height:1.75; }
+    .hero-stats { display:flex;justify-content:center;gap:40px;flex-wrap:wrap; }
+    .hs { text-align:center; }
+    .hs-val { font-family:var(--font-heading);font-size:2rem;font-weight:900;background:var(--gradient-primary);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text; }
+    .hs-lbl { font-size:0.85rem;color:var(--text-muted);font-weight:500;margin-top:4px; }
+
+    /* ---- Mission ---- */
+    .mission-section { padding:80px 0;background:var(--bg-body); }
+    .mission-grid { display:grid;grid-template-columns:1fr 1fr;gap:60px;align-items:center; }
+    .mission-img { border-radius:var(--radius-xl);overflow:hidden;box-shadow:var(--shadow-xl); }
+    .mission-img img { width:100%;height:380px;object-fit:cover;display:block; }
+    .mission-tag { display:inline-block;font-size:0.78rem;font-weight:700;letter-spacing:.09em;text-transform:uppercase;color:var(--clr-primary);background:rgba(59,130,246,0.1);padding:5px 14px;border-radius:999px;margin-bottom:16px; }
+    .mission-heading { font-family:var(--font-heading);font-size:clamp(1.5rem,3vw,2.1rem);font-weight:800;color:var(--text-primary);line-height:1.25;margin-bottom:16px; }
+    .mission-body { font-size:0.95rem;color:var(--text-secondary);line-height:1.8;margin-bottom:20px; }
+    .mission-bullets { display:flex;flex-direction:column;gap:12px; }
+    .mission-bullet { display:flex;align-items:flex-start;gap:12px;font-size:0.9rem;color:var(--text-secondary); }
+    .mission-bullet i { color:var(--clr-success);margin-top:2px;flex-shrink:0; }
+
+    /* ---- Values ---- */
+    .values-section { padding:80px 0;background:var(--bg-surface-2); }
+    .values-grid { display:grid;grid-template-columns:repeat(3,1fr);gap:24px;margin-top:48px; }
+    .value-card { background:var(--bg-card);border:1px solid var(--clr-border);border-radius:var(--radius-lg);padding:32px 28px;box-shadow:var(--shadow-sm);transition:all .3s; }
+    .value-card:hover { transform:translateY(-6px);box-shadow:var(--shadow-lg);border-color:rgba(59,130,246,0.2); }
+    .value-icon { width:56px;height:56px;border-radius:var(--radius-md);display:flex;align-items:center;justify-content:center;font-size:1.4rem;margin-bottom:18px;transition:all .3s; }
+    .value-card:hover .value-icon { background:var(--gradient-primary)!important;color:#fff!important; }
+    .value-card h3 { font-family:var(--font-heading);font-size:1.05rem;font-weight:700;color:var(--text-primary);margin-bottom:10px; }
+    .value-card p  { font-size:0.875rem;color:var(--text-secondary);line-height:1.65; }
+
+    /* ---- Team ---- */
+    .team-section { padding:80px 0;background:var(--bg-body); }
+    .team-grid { display:grid;grid-template-columns:repeat(4,1fr);gap:24px;margin-top:48px; }
+    .team-card { background:var(--bg-surface);border:1px solid var(--clr-border);border-radius:var(--radius-lg);overflow:hidden;box-shadow:var(--shadow-sm);text-align:center;transition:all .3s; }
+    .team-card:hover { transform:translateY(-6px);box-shadow:var(--shadow-lg); }
+    .team-img { width:100%;height:180px;object-fit:cover;object-position:top; }
+    .team-body { padding:18px 16px; }
+    .team-name { font-family:var(--font-heading);font-size:0.95rem;font-weight:700;color:var(--text-primary);margin-bottom:4px; }
+    .team-role { font-size:0.78rem;color:var(--clr-primary);font-weight:600;margin-bottom:10px; }
+    .team-social { display:flex;justify-content:center;gap:8px; }
+    .team-social a { width:30px;height:30px;border-radius:6px;background:var(--bg-surface-2);border:1px solid var(--clr-border);color:var(--text-muted);display:flex;align-items:center;justify-content:center;font-size:0.78rem;text-decoration:none;transition:all .2s; }
+    .team-social a:hover { background:var(--gradient-primary);color:#fff;border-color:transparent; }
+
+    /* ---- CTA banner ---- */
+    .cta-banner { padding:80px 0;background:var(--gradient-primary);text-align:center; }
+    .cta-banner h2 { font-family:var(--font-heading);font-size:clamp(1.75rem,4vw,2.5rem);font-weight:900;color:#fff;margin-bottom:14px; }
+    .cta-banner p  { color:rgba(255,255,255,0.85);font-size:1rem;margin-bottom:32px;max-width:500px;margin-inline:auto; }
+    .cta-btns { display:flex;gap:16px;justify-content:center;flex-wrap:wrap; }
+    .btn-white { padding:14px 32px;border-radius:999px;background:#fff;color:var(--clr-primary);font-family:var(--font-heading);font-size:0.95rem;font-weight:700;text-decoration:none;display:inline-flex;align-items:center;gap:8px;transition:all .3s;box-shadow:0 4px 20px rgba(0,0,0,0.15); }
+    .btn-white:hover { transform:translateY(-3px);box-shadow:0 8px 30px rgba(0,0,0,0.2); }
+    .btn-outline-white { padding:14px 32px;border-radius:999px;background:transparent;color:#fff;border:2px solid rgba(255,255,255,0.6);font-family:var(--font-heading);font-size:0.95rem;font-weight:700;text-decoration:none;display:inline-flex;align-items:center;gap:8px;transition:all .3s; }
+    .btn-outline-white:hover { background:rgba(255,255,255,0.15);border-color:#fff; }
+
+    /* ---- Footer ---- */
+    .page-footer { background:var(--clr-dark);color:#CBD5E1;padding:40px 0 0; }
+    .footer-inner { max-width:1200px;margin:0 auto;padding:0 24px; }
+    .footer-bottom { padding:24px 0;display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:12px;border-top:1px solid rgba(255,255,255,0.08); }
+    .footer-bottom p { font-size:0.85rem;color:#64748B; }
+    .footer-links { display:flex;gap:20px;flex-wrap:wrap; }
+    .footer-links a { font-size:0.82rem;color:#64748B;text-decoration:none;transition:color .2s; }
+    .footer-links a:hover { color:var(--clr-primary-light); }
+
+    @media(max-width:1024px){.values-grid{grid-template-columns:repeat(2,1fr);}.team-grid{grid-template-columns:repeat(2,1fr);}}
+    @media(max-width:768px){.mission-grid{grid-template-columns:1fr;}.hero-stats{gap:24px;}.values-grid{grid-template-columns:1fr;}.team-grid{grid-template-columns:repeat(2,1fr);}}
+    @media(max-width:480px){.team-grid{grid-template-columns:1fr;}.cta-btns{flex-direction:column;align-items:center;}}
+  </style>
+</head>
+<body>
+  <header class="top-nav">
+    <div class="top-nav-inner">
+      <a href="/" class="nav-brand">
+        <span class="nav-brand-icon"><i class="fas fa-graduation-cap"></i></span>
+        Apna <strong style="color:var(--clr-primary);">Shiksharth</strong>
+      </a>
+      <div class="nav-links-r">
+        <a href="/">Home</a>
+        <a href="/courses">Courses</a>
+        <a href="/about" class="active">About</a>
+        <a href="/contact">Contact</a>
+        <a href="/login" class="btn btn-outline btn-sm">Log In</a>
+        <a href="/signup" class="btn btn-primary btn-sm">Sign Up</a>
+      </div>
+    </div>
+  </header>
+
+  <!-- Hero -->
+  <section class="about-hero">
+    <div class="container">
+      <span class="tag">Our Story</span>
+      <h1>Empowering India's Next<br/><span class="gradient-text">Generation of Learners</span></h1>
+      <p>Apna Shiksharth is an Indian EdTech platform helping students learn real-world skills with mentorship and career-focused courses — bridging the gap between education and employment.</p>
+      <div class="hero-stats">
+        <div class="hs"><div class="hs-val">1.2L+</div><div class="hs-lbl">Students Enrolled</div></div>
+        <div class="hs"><div class="hs-val">350+</div><div class="hs-lbl">Courses Available</div></div>
+        <div class="hs"><div class="hs-val">93%</div><div class="hs-lbl">Placement Rate</div></div>
+        <div class="hs"><div class="hs-val">200+</div><div class="hs-lbl">Expert Mentors</div></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Mission -->
+  <section class="mission-section">
+    <div class="container">
+      <div class="mission-grid">
+        <div class="mission-img">
+          <img src="https://images.unsplash.com/photo-1522202176988-66273c2fd55f?w=700&q=80" alt="Students learning at Apna Shiksharth" loading="lazy"/>
+        </div>
+        <div>
+          <span class="mission-tag">Our Mission</span>
+          <h2 class="mission-heading">Making Quality Education <span class="gradient-text">Accessible to Every Indian</span></h2>
+          <p class="mission-body">
+            Founded with the belief that every Indian student — regardless of their city, college, or economic background — deserves access to world-class education and career opportunities. We combine expert faculty, industry mentors, and technology to deliver learning that actually leads to jobs.
+          </p>
+          <p class="mission-body">
+            From tier-3 cities to metro hubs, Apna Shiksharth has helped over 1.2 lakh students acquire the skills, confidence, and network to land roles at India's top companies.
+          </p>
+          <div class="mission-bullets">
+            <div class="mission-bullet"><i class="fas fa-check-circle"></i><span>Live, industry-validated curriculum updated every quarter</span></div>
+            <div class="mission-bullet"><i class="fas fa-check-circle"></i><span>1-on-1 mentorship from IIT, IIM & top startup professionals</span></div>
+            <div class="mission-bullet"><i class="fas fa-check-circle"></i><span>500+ hiring partners providing direct placement referrals</span></div>
+            <div class="mission-bullet"><i class="fas fa-check-circle"></i><span>Affordable pricing with EMI options for every learner</span></div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Values -->
+  <section class="values-section">
+    <div class="container">
+      <div class="section-header" style="text-align:center;max-width:600px;margin:0 auto;">
+        <span class="section-tag">What We Stand For</span>
+        <h2 style="font-family:var(--font-heading);font-size:clamp(1.75rem,3vw,2.25rem);font-weight:800;color:var(--text-primary);margin:12px 0;">Our Core <span class="gradient-text">Values</span></h2>
+        <p style="color:var(--text-secondary);font-size:0.95rem;">The principles that guide everything we build, teach, and deliver.</p>
+      </div>
+      <div class="values-grid">
+        <div class="value-card">
+          <div class="value-icon" style="background:rgba(59,130,246,0.1);color:#3B82F6;"><i class="fas fa-bullseye"></i></div>
+          <h3>Outcome-First Learning</h3>
+          <p>Every course is built around one question: will this help the student get a better job or build a better business? We measure success by student outcomes, not course completions.</p>
+        </div>
+        <div class="value-card">
+          <div class="value-icon" style="background:rgba(16,185,129,0.1);color:#10B981;"><i class="fas fa-heart"></i></div>
+          <h3>Radical Accessibility</h3>
+          <p>World-class education shouldn't be a privilege. We keep prices low, offer EMI options, and provide free foundational courses so no student is left behind due to financial barriers.</p>
+        </div>
+        <div class="value-card">
+          <div class="value-icon" style="background:rgba(139,92,246,0.1);color:#8B5CF6;"><i class="fas fa-users"></i></div>
+          <h3>Community Over Competition</h3>
+          <p>Learning is better together. Our community of 1.2 lakh students collaborates, shares opportunities, and lifts each other up — because your success is everyone's success.</p>
+        </div>
+        <div class="value-card">
+          <div class="value-icon" style="background:rgba(245,158,11,0.1);color:#F59E0B;"><i class="fas fa-star"></i></div>
+          <h3>Relentless Quality</h3>
+          <p>We obsess over course quality. Every instructor is vetted rigorously, every curriculum is reviewed by industry experts, and every piece of feedback shapes our next iteration.</p>
+        </div>
+        <div class="value-card">
+          <div class="value-icon" style="background:rgba(239,68,68,0.1);color:#EF4444;"><i class="fas fa-handshake"></i></div>
+          <h3>Mentor-Led Growth</h3>
+          <p>Textbooks teach concepts — mentors teach wisdom. Our 200+ mentors bring decades of industry experience to guide students through real career challenges, not just academic ones.</p>
+        </div>
+        <div class="value-card">
+          <div class="value-icon" style="background:rgba(20,184,166,0.1);color:#14B8A6;"><i class="fas fa-shield-alt"></i></div>
+          <h3>Transparency & Trust</h3>
+          <p>No hidden fees. No inflated placement numbers. No fake reviews. We share honest outcomes data, real student testimonials, and clear pricing — because trust is non-negotiable.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Team -->
+  <section class="team-section">
+    <div class="container">
+      <div class="section-header" style="text-align:center;max-width:600px;margin:0 auto;">
+        <span class="section-tag">The People Behind It</span>
+        <h2 style="font-family:var(--font-heading);font-size:clamp(1.75rem,3vw,2.25rem);font-weight:800;color:var(--text-primary);margin:12px 0;">Meet Our <span class="gradient-text">Team</span></h2>
+        <p style="color:var(--text-secondary);font-size:0.95rem;">Educators, engineers, and career coaches united by a single mission.</p>
+      </div>
+      <div class="team-grid">
+        <div class="team-card">
+          <img class="team-img" src="https://i.pravatar.cc/300?img=33" alt="Founder"/>
+          <div class="team-body">
+            <div class="team-name">Aarav Sharma</div>
+            <div class="team-role">Founder & CEO</div>
+            <div class="team-social">
+              <a href="#"><i class="fab fa-linkedin-in"></i></a>
+              <a href="#"><i class="fab fa-twitter"></i></a>
+            </div>
+          </div>
+        </div>
+        <div class="team-card">
+          <img class="team-img" src="https://i.pravatar.cc/300?img=47" alt="CTO"/>
+          <div class="team-body">
+            <div class="team-name">Priya Verma</div>
+            <div class="team-role">Chief Technology Officer</div>
+            <div class="team-social">
+              <a href="#"><i class="fab fa-linkedin-in"></i></a>
+              <a href="#"><i class="fab fa-github"></i></a>
+            </div>
+          </div>
+        </div>
+        <div class="team-card">
+          <img class="team-img" src="https://i.pravatar.cc/300?img=52" alt="Head of Curriculum"/>
+          <div class="team-body">
+            <div class="team-name">Dr. Suresh Patel</div>
+            <div class="team-role">Head of Curriculum</div>
+            <div class="team-social">
+              <a href="#"><i class="fab fa-linkedin-in"></i></a>
+              <a href="#"><i class="fab fa-twitter"></i></a>
+            </div>
+          </div>
+        </div>
+        <div class="team-card">
+          <img class="team-img" src="https://i.pravatar.cc/300?img=44" alt="Head of Placements"/>
+          <div class="team-body">
+            <div class="team-name">Meena Joshi</div>
+            <div class="team-role">Head of Placements</div>
+            <div class="team-social">
+              <a href="#"><i class="fab fa-linkedin-in"></i></a>
+              <a href="#"><i class="fab fa-twitter"></i></a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- CTA -->
+  <section class="cta-banner">
+    <div class="container">
+      <h2>Ready to Start Your Journey?</h2>
+      <p>Join 1.2 lakh+ students already learning and growing with Apna Shiksharth.</p>
+      <div class="cta-btns">
+        <a href="/signup" class="btn-white"><i class="fas fa-user-plus"></i> Create Free Account</a>
+        <a href="/courses" class="btn-outline-white"><i class="fas fa-book-open"></i> Browse Courses</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- Footer -->
+  <footer class="page-footer">
+    <div class="footer-inner">
+      <div class="footer-bottom">
+        <p>© 2025 Apna Shiksharth Pvt. Ltd. All rights reserved. Made with ❤️ in India 🇮🇳</p>
+        <div class="footer-links">
+          <a href="/terms">Terms & Conditions</a>
+          <a href="/privacy">Privacy Policy</a>
+          <a href="/contact">Contact Us</a>
+        </div>
+      </div>
+    </div>
+  </footer>
+
+  <script>
+    const saved = localStorage.getItem('theme');
+    if (saved) document.documentElement.setAttribute('data-theme', saved);
+  </script>
+</body>
+</html>

@@ -1,0 +1,298 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="light">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Courses — Apna Shiksharth</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com"/>
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700;800&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet"/>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" crossorigin="anonymous"/>
+  <link rel="stylesheet" href="/style.css"/>
+  <style>
+    .page-hero { background: var(--gradient-hero); padding: 120px 0 60px; text-align: center; }
+    .page-hero h1 { font-family: var(--font-heading); font-size: clamp(2rem,4vw,2.8rem); font-weight: 900; color: var(--text-primary); margin-bottom: 14px; }
+    .page-hero p  { font-size: 1.05rem; color: var(--text-secondary); max-width: 540px; margin: 0 auto 28px; }
+    .search-bar { display: flex; gap: 12px; justify-content: center; flex-wrap: wrap; padding: 0 16px; }
+    .search-input-wrap { position: relative; flex: 1; max-width: 420px; }
+    .search-input-wrap i { position: absolute; left: 16px; top: 50%; transform: translateY(-50%); color: var(--text-muted); }
+    .search-input { width: 100%; padding: 13px 16px 13px 44px; border: 1.5px solid var(--clr-border); border-radius: var(--radius-full); background: var(--bg-surface); color: var(--text-primary); font-size: 0.95rem; font-family: var(--font-body); outline: none; box-shadow: var(--shadow-sm); transition: all 0.2s; }
+    .search-input:focus { border-color: var(--clr-primary); box-shadow: 0 0 0 3px rgba(59,130,246,0.12); }
+    .courses-page { padding: 60px 0 80px; background: var(--bg-body); }
+    .filter-row { display: flex; flex-wrap: wrap; gap: 10px; justify-content: center; margin-bottom: 40px; }
+    .filter-btn { padding: 9px 22px; border-radius: var(--radius-full); font-size: 0.875rem; font-weight: 600; color: var(--text-secondary); background: var(--bg-surface); border: 1.5px solid var(--clr-border); cursor: pointer; transition: all 0.25s; font-family: var(--font-body); }
+    .filter-btn.active, .filter-btn:hover { background: var(--gradient-primary); color: #fff; border-color: transparent; box-shadow: 0 4px 14px rgba(59,130,246,0.28); transform: translateY(-2px); }
+    .courses-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 28px; }
+    .course-card { background: var(--bg-card); border: 1px solid var(--clr-border); border-radius: var(--radius-lg); overflow: hidden; box-shadow: var(--shadow-sm); transition: all 0.3s; display: flex; flex-direction: column; }
+    .course-card:hover { transform: translateY(-8px); box-shadow: var(--shadow-lg); border-color: rgba(59,130,246,0.2); }
+    .course-img-wrap { position: relative; overflow: hidden; }
+    .course-img-wrap img { width: 100%; height: 200px; object-fit: cover; transition: transform 0.5s; display: block; }
+    .course-card:hover .course-img-wrap img { transform: scale(1.06); }
+    .course-badge { position: absolute; top: 12px; left: 12px; font-size: 0.73rem; font-weight: 700; padding: 5px 10px; border-radius: var(--radius-full); }
+    .badge-hot  { background: #FEF3C7; color: #D97706; }
+    .badge-free { background: #D1FAE5; color: #065F46; }
+    .badge-new  { background: #EDE9FE; color: #5B21B6; }
+    .course-body { padding: 20px; display: flex; flex-direction: column; flex: 1; }
+    .course-meta { display: flex; align-items: center; justify-content: space-between; margin-bottom: 10px; }
+    .course-tag { font-size: 0.72rem; font-weight: 600; color: var(--clr-primary); background: rgba(59,130,246,0.1); padding: 3px 10px; border-radius: 999px; }
+    .course-duration { font-size: 0.78rem; color: var(--text-muted); }
+    .course-title { font-family: var(--font-heading); font-size: 1rem; font-weight: 700; color: var(--text-primary); margin-bottom: 10px; line-height: 1.4; }
+    .course-desc { font-size: 0.875rem; color: var(--text-secondary); line-height: 1.6; margin-bottom: 12px; flex: 1; }
+    .course-rating { display: flex; align-items: center; gap: 5px; margin-bottom: 14px; }
+    .stars { color: #F59E0B; font-size: 0.88rem; }
+    .rating-num { font-size: 0.85rem; font-weight: 700; color: var(--text-primary); }
+    .rating-count { font-size: 0.78rem; color: var(--text-muted); }
+    .course-footer { display: flex; align-items: center; justify-content: space-between; padding-top: 16px; border-top: 1px solid var(--clr-border); margin-top: auto; }
+    .price-current { font-family: var(--font-heading); font-size: 1.1rem; font-weight: 800; color: var(--clr-primary); }
+    .price-original { font-size: 0.82rem; color: var(--text-muted); text-decoration: line-through; margin-left: 6px; }
+    .enroll-btn { padding: 10px 20px; border-radius: var(--radius-full); background: var(--gradient-primary); color: #fff; font-size: 0.85rem; font-weight: 700; border: none; cursor: pointer; font-family: var(--font-heading); transition: all 0.25s; box-shadow: 0 3px 12px rgba(59,130,246,0.3); display: flex; align-items: center; gap: 6px; }
+    .enroll-btn:hover { transform: translateY(-2px); box-shadow: 0 6px 20px rgba(59,130,246,0.4); }
+    .enroll-btn.enrolled { background: linear-gradient(135deg,#10B981,#059669); box-shadow: 0 3px 12px rgba(16,185,129,0.3); cursor: default; }
+    .skeleton { background: linear-gradient(90deg,var(--clr-border) 25%,rgba(255,255,255,0.4) 50%,var(--clr-border) 75%); background-size: 200% 100%; animation: shimmer 1.4s infinite; border-radius: 8px; }
+    @keyframes shimmer { to { background-position: -200% 0; } }
+    .toast { position: fixed; bottom: 28px; right: 28px; z-index: 1000; background: var(--bg-surface); border: 1px solid var(--clr-border); border-radius: var(--radius-md); padding: 14px 20px; box-shadow: var(--shadow-lg); display: flex; align-items: center; gap: 12px; font-size: 0.9rem; font-weight: 500; max-width: 340px; transform: translateY(80px); opacity: 0; transition: all 0.4s cubic-bezier(0.4,0,0.2,1); }
+    .toast.show { transform: translateY(0); opacity: 1; }
+    .toast.success { border-left: 4px solid #10B981; }
+    .toast.error   { border-left: 4px solid #EF4444; }
+    .results-count { text-align: center; color: var(--text-muted); font-size: 0.875rem; margin-bottom: 24px; }
+    @media (max-width: 1024px) { .courses-grid { grid-template-columns: repeat(2,1fr); } }
+    @media (max-width: 640px)  { .courses-grid { grid-template-columns: 1fr; } .filter-row { gap: 8px; } }
+  </style>
+</head>
+<body>
+  <!-- Navbar -->
+  <header id="navbar" style="position:fixed;top:0;left:0;right:0;z-index:200;background:var(--bg-nav);backdrop-filter:blur(20px);border-bottom:1px solid transparent;transition:all 0.3s;">
+    <nav style="max-width:1200px;margin:0 auto;padding:14px 24px;display:flex;align-items:center;gap:20px;">
+      <a href="/" style="display:flex;align-items:center;gap:10px;font-family:var(--font-heading);font-size:1.1rem;font-weight:700;color:var(--text-primary);text-decoration:none;flex-shrink:0;">
+        <span style="width:36px;height:36px;border-radius:10px;background:var(--gradient-primary);display:flex;align-items:center;justify-content:center;color:#fff;"><i class="fas fa-graduation-cap"></i></span>
+        Apna <strong style="color:var(--clr-primary);">Shiksharth</strong>
+      </a>
+      <div style="display:flex;gap:6px;margin-left:auto;align-items:center;flex-wrap:wrap;">
+        <a href="/" style="padding:8px 12px;font-size:0.9rem;font-weight:500;color:var(--text-secondary);text-decoration:none;border-radius:8px;">Home</a>
+        <a href="/courses" style="padding:8px 12px;font-size:0.9rem;font-weight:600;color:var(--clr-primary);text-decoration:none;border-radius:8px;background:rgba(59,130,246,0.08);">Courses</a>
+        <a href="/about" style="padding:8px 12px;font-size:0.9rem;font-weight:500;color:var(--text-secondary);text-decoration:none;border-radius:8px;">About</a>
+        <a href="/contact" style="padding:8px 12px;font-size:0.9rem;font-weight:500;color:var(--text-secondary);text-decoration:none;border-radius:8px;">Contact</a>
+        <div id="nav-auth"></div>
+      </div>
+    </nav>
+  </header>
+
+  <!-- Page Hero -->
+  <section class="page-hero">
+    <div class="container">
+      <h1>Explore Our <span class="gradient-text">Courses</span></h1>
+      <p>Job-ready courses built and validated by top industry professionals. Learn at your own pace.</p>
+      <div class="search-bar">
+        <div class="search-input-wrap">
+          <i class="fas fa-search"></i>
+          <input type="text" class="search-input" id="search-input" placeholder="Search courses, topics, instructors…"/>
+        </div>
+        <button class="btn btn-primary" id="search-btn"><i class="fas fa-search"></i> Search</button>
+      </div>
+    </div>
+  </section>
+
+  <!-- Courses Section -->
+  <section class="courses-page">
+    <div class="container">
+      <div class="filter-row" id="filter-row">
+        <button class="filter-btn active" data-cat="all">All Courses</button>
+        <button class="filter-btn" data-cat="Tech">Tech</button>
+        <button class="filter-btn" data-cat="Design">Design</button>
+        <button class="filter-btn" data-cat="Business">Business</button>
+        <button class="filter-btn" data-cat="Exam Prep">Exam Prep</button>
+      </div>
+      <div class="results-count" id="results-count"></div>
+      <div class="courses-grid" id="courses-grid">
+        <!-- Skeleton loaders -->
+        ${Array(6).fill(0).map(() => `
+          <div style="border:1px solid var(--clr-border);border-radius:12px;overflow:hidden;">
+            <div class="skeleton" style="height:200px;border-radius:0;"></div>
+            <div style="padding:20px;display:flex;flex-direction:column;gap:10px;">
+              <div class="skeleton" style="height:12px;width:50%;"></div>
+              <div class="skeleton" style="height:18px;width:80%;"></div>
+              <div class="skeleton" style="height:12px;width:90%;"></div>
+              <div class="skeleton" style="height:12px;width:60%;"></div>
+            </div>
+          </div>`).join('')}
+      </div>
+    </div>
+  </section>
+
+  <!-- Toast -->
+  <div class="toast" id="toast"><i class="fas fa-check-circle" id="toast-icon" style="color:#10B981;font-size:1.1rem;"></i><span id="toast-msg"></span></div>
+
+  <script>
+    const saved = localStorage.getItem('theme');
+    if (saved) document.documentElement.setAttribute('data-theme', saved);
+
+    let allCourses = [];
+    let currentCat = 'all';
+    let loggedIn   = false;
+    let enrolledIds = new Set();
+
+    // Nav auth
+    async function checkAuth() {
+      try {
+        const res  = await fetch('/api/auth/me', { credentials: 'include' });
+        const data = await res.json();
+        if (data.success) {
+          loggedIn = true;
+          enrolledIds = new Set((data.user.enrollments || []).map(e => e.id));
+          document.getElementById('nav-auth').innerHTML = `
+            <a href="/dashboard" class="btn btn-primary btn-sm"><i class="fas fa-th-large"></i> Dashboard</a>`;
+        } else {
+          document.getElementById('nav-auth').innerHTML = `
+            <a href="/login" class="btn btn-outline btn-sm">Log In</a>
+            <a href="/signup" class="btn btn-primary btn-sm">Sign Up</a>`;
+        }
+      } catch { /* not logged in */ }
+    }
+
+    function showToast(msg, type = 'success') {
+      const t  = document.getElementById('toast');
+      const ic = document.getElementById('toast-icon');
+      document.getElementById('toast-msg').textContent = msg;
+      t.className = `toast ${type} show`;
+      ic.style.color = type === 'success' ? '#10B981' : '#EF4444';
+      setTimeout(() => t.classList.remove('show'), 4000);
+    }
+
+    function renderCourses(courses) {
+      const grid = document.getElementById('courses-grid');
+      document.getElementById('results-count').textContent = `Showing ${courses.length} course${courses.length !== 1 ? 's' : ''}`;
+
+      if (!courses.length) {
+        grid.innerHTML = `<div style="grid-column:1/-1;text-align:center;padding:60px 20px;color:var(--text-secondary);">
+          <i class="fas fa-search" style="font-size:2.5rem;opacity:0.3;display:block;margin-bottom:16px;"></i>
+          No courses found. Try a different filter or search term.
+        </div>`;
+        return;
+      }
+
+      grid.innerHTML = courses.map(c => {
+        const isEnrolled = enrolledIds.has(c.id) || c.enrolled;
+        const price = c.price === 0 ? '<span class="price-current" style="color:var(--clr-success);">FREE</span>' :
+          `<span class="price-current">₹${c.price.toLocaleString('en-IN')}</span><span class="price-original">₹${c.price_orig.toLocaleString('en-IN')}</span>`;
+        const badge = c.badge ? `<span class="course-badge badge-${c.badge === 'Bestseller' ? 'hot' : c.badge === 'New' ? 'new' : 'free'}">${c.badge}</span>` : '';
+        return `
+        <article class="course-card">
+          <div class="course-img-wrap">
+            <img src="${c.image_url}" alt="${c.title}" loading="lazy"/>
+            ${badge}
+          </div>
+          <div class="course-body">
+            <div class="course-meta">
+              <span class="course-tag">${c.category}</span>
+              <span class="course-duration"><i class="fas fa-clock"></i> ${c.duration}</span>
+            </div>
+            <h3 class="course-title">${c.title}</h3>
+            <p class="course-desc">${c.description.length > 110 ? c.description.slice(0,110)+'…' : c.description}</p>
+            <div class="course-rating">
+              <span class="stars">★★★★★</span>
+              <span class="rating-num">${c.rating}</span>
+              <span class="rating-count">(${c.reviews.toLocaleString('en-IN')})</span>
+            </div>
+            <div class="course-footer">
+              <div>${price}</div>
+              <button class="enroll-btn ${isEnrolled ? 'enrolled' : ''}" data-id="${c.id}" data-title="${c.title}" ${isEnrolled ? 'disabled' : ''}>
+                ${isEnrolled ? '<i class="fas fa-check"></i> Enrolled' : 'Enroll Now <i class="fas fa-arrow-right"></i>'}
+              </button>
+            </div>
+          </div>
+        </article>`;
+      }).join('');
+
+      // Attach enroll handlers
+      grid.querySelectorAll('.enroll-btn:not(.enrolled)').forEach(btn => {
+        btn.addEventListener('click', () => enrollCourse(parseInt(btn.dataset.id), btn.dataset.title, btn));
+      });
+    }
+
+    async function enrollCourse(id, title, btn) {
+      if (!loggedIn) {
+        showToast('Please log in to enroll in courses.', 'error');
+        setTimeout(() => window.location.href = `/login`, 1500);
+        return;
+      }
+      btn.disabled = true;
+      btn.innerHTML = '<i class="fas fa-spinner fa-spin"></i>';
+      try {
+        const res  = await fetch(`/api/auth/enroll/${id}`, { method: 'POST', credentials: 'include' });
+        const data = await res.json();
+        if (data.success) {
+          btn.className = 'enroll-btn enrolled';
+          btn.innerHTML = '<i class="fas fa-check"></i> Enrolled';
+          enrolledIds.add(id);
+          showToast(data.message, 'success');
+        } else {
+          btn.disabled = false;
+          btn.innerHTML = 'Enroll Now <i class="fas fa-arrow-right"></i>';
+          showToast(data.message, data.message.includes('already') ? 'success' : 'error');
+        }
+      } catch {
+        btn.disabled = false;
+        btn.innerHTML = 'Enroll Now <i class="fas fa-arrow-right"></i>';
+        showToast('Error enrolling. Please try again.', 'error');
+      }
+    }
+
+    function filterAndRender(cat, search = '') {
+      let filtered = allCourses;
+      if (cat !== 'all') filtered = filtered.filter(c => c.category === cat);
+      if (search) {
+        const q = search.toLowerCase();
+        filtered = filtered.filter(c =>
+          c.title.toLowerCase().includes(q) ||
+          c.description.toLowerCase().includes(q) ||
+          c.instructor.toLowerCase().includes(q)
+        );
+      }
+      renderCourses(filtered);
+    }
+
+    async function loadCourses() {
+      try {
+        const res  = await fetch('/api/courses', { credentials: 'include' });
+        const data = await res.json();
+        allCourses = data.courses || [];
+        filterAndRender(currentCat);
+      } catch {
+        document.getElementById('courses-grid').innerHTML = `
+          <div style="grid-column:1/-1;text-align:center;padding:40px;color:var(--clr-danger);">
+            <i class="fas fa-exclamation-triangle" style="font-size:2rem;margin-bottom:12px;display:block;"></i>
+            Failed to load courses. Please refresh the page.
+          </div>`;
+      }
+    }
+
+    // Filter buttons
+    document.getElementById('filter-row').addEventListener('click', e => {
+      const btn = e.target.closest('.filter-btn');
+      if (!btn) return;
+      document.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('active'));
+      btn.classList.add('active');
+      currentCat = btn.dataset.cat;
+      filterAndRender(currentCat, document.getElementById('search-input').value.trim());
+    });
+
+    // Search
+    let searchTimer;
+    document.getElementById('search-input').addEventListener('input', function() {
+      clearTimeout(searchTimer);
+      searchTimer = setTimeout(() => filterAndRender(currentCat, this.value.trim()), 300);
+    });
+    document.getElementById('search-btn').addEventListener('click', () =>
+      filterAndRender(currentCat, document.getElementById('search-input').value.trim()));
+
+    // Navbar scroll
+    window.addEventListener('scroll', () => {
+      const nav = document.getElementById('navbar');
+      if (window.scrollY > 20) { nav.style.borderBottomColor = 'var(--clr-border)'; nav.style.boxShadow = '0 2px 12px rgba(0,0,0,0.06)'; }
+      else { nav.style.borderBottomColor = 'transparent'; nav.style.boxShadow = 'none'; }
+    });
+
+    checkAuth().then(loadCourses);
+  </script>
+</body>
+</html>
